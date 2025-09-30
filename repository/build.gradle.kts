@@ -37,5 +37,6 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.kotlinx.serialization.json)
+    api(project(":domain"))
     testImplementation(libs.junit)
 }

@@ -34,6 +34,7 @@ android {
 
 dependencies {
 
+    api(project(":repository"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.cio)
