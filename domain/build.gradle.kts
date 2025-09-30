@@ -11,3 +11,7 @@ kotlin {
         jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11
     }
 }
+dependencies {
+    api(project(":entity"))
+    implementation(libs.kotlinx.coroutines.core)
+}
