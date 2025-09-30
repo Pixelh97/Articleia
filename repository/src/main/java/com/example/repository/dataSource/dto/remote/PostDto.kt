@@ -5,12 +5,12 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PostDto(
-    @SerialName("body")
-    val body: String,
     @SerialName("id")
     val id: Int,
-    @SerialName("title")
-    val title: String,
     @SerialName("userId")
     val userId: Int,
+    @SerialName("title")
+    val title: String,
+    @SerialName("body")
+    val body: String,
 )
