@@ -18,6 +18,9 @@ ktorClientCore = "3.1.2"
 ktorClientContentNegotiation = "3.0.3"
 ktorVersion = "3.0.3"
 kotlinxSerializationJson = "1.8.1"
+junitJupiterApi = "5.9.2"
+kotlinxCoroutinesTest = "1.6.4"
+mockk = "1.13.4"
 
 
 [libraries]
@@ -39,6 +42,9 @@ androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiterApi" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 
 # ktor
 ktor-client-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktorClientCio" }
