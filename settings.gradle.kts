@@ -21,4 +21,11 @@ dependencyResolutionManagement {
 
 rootProject.name = "Articleia"
 include(":app")
- 
+include(":repository")
+include(":remoteDataSource")
+include(":localDataSource")
+include(":domain")
+include(":entity")
+include(":designSystem")
+include(":ui")
+include(":viewModel")
