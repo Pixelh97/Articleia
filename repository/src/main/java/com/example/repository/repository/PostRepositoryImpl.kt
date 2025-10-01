@@ -22,7 +22,7 @@ class PostRepositoryImpl(
                     .fetchPosts()
                     .map {
                         val comments = remoteDataSource.fetchCommentsByPostId(it.id)
-                        it.toPost(comments.size)
+                        it.toPost(comments.size, false)
                     }
             localDataSource.addAllPosts(posts.toPostsDto())
             return posts

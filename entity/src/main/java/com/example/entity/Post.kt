@@ -6,4 +6,5 @@ data class Post(
     val title: String,
     val body: String,
     val commentsCounter: Int,
+    val isFavorite: Boolean,
 )

@@ -9,4 +9,6 @@
     <string name="favorite">Favorite</string>
     <string name="hi_what_do_you_want_to_read">Hi, what do \nyou want to read</string>
     <string name="could_not_find_any_data_at_the_current_time">Could not find any data\nat the current time.</string>
+    <string name="navigate_back_button">Navigate back button</string>
+    <string name="comment">Comment (%1$d)</string>
 </resources>

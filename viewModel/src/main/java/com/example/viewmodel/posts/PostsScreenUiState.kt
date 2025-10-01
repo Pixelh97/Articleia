@@ -7,9 +7,10 @@ data class PostsScreenUiState(
     val isNoInternetConnection: Boolean = false,
 ) {
     data class PostUiState(
-        val id: Int,
-        val title: String,
-        val body: String,
-        val commentsCount: Int,
+        val id: Int = 0,
+        val title: String = "",
+        val body: String = "",
+        val commentsCount: Int = 0,
+        val isFavorite: Boolean = false,
     )
 }

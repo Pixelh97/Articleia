@@ -8,6 +8,7 @@ fun Post.toPostUiState(): PostsScreenUiState.PostUiState =
         title = this.title,
         body = this.body,
         commentsCount = this.commentsCounter,
+        isFavorite = this.isFavorite,
     )
 
 fun List<Post>.toPostUiState(): List<PostsScreenUiState.PostUiState> = this.map { it.toPostUiState() }
