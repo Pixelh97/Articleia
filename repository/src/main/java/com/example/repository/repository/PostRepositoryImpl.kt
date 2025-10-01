@@ -56,6 +56,7 @@ class PostRepositoryImpl(
         postId: Int,
         isFavorite: Boolean,
     ) {
+        updateCachedPost(postId, isFavorite)
         try {
             if (isFavorite) {
                 remoteDataSource.addPostToFavorites(postId)
@@ -64,6 +65,19 @@ class PostRepositoryImpl(
             }
         } catch (e: Exception) {
             addToPendingQueue(postId, isFavorite = isFavorite)
+        }
+    }
+
+    private suspend fun updateCachedPost(
+        postId: Int,
+        isFavorite: Boolean,
+    ) {
+        val updatedPost =
+            localDataSource
+                .getPostById(postId)
+                ?.copy(isFavorite = isFavorite)
+        if (updatedPost != null) {
+            localDataSource.updatePost(updatedPost)
         }
     }
 

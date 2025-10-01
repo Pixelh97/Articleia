@@ -29,16 +29,9 @@ class PostFavoriteSyncWorker(
                     } else {
                         remoteDataSource.addPostToFavorites(pendingLike.postId)
                     }
-                    val updatedPost =
-                        localDataSource
-                            .getPostById(pendingLike.postId)
-                            ?.copy(isFavorite = pendingLike.isFavorite)
-                    if (updatedPost != null) {
-                        localDataSource.updatePost(updatedPost)
-                    }
+
                     localDataSource.removeFavoriteQueue(pendingLike.postId, pendingLike.isFavorite)
                 } catch (e: Exception) {
-                    // Log error but continue with other items
                     Log.e("LikeSyncWorker", "Failed to sync like for $pendingLike", e)
                 }
             }

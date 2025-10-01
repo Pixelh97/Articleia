@@ -51,8 +51,18 @@ class PostsViewModel(
     }
 
     fun onTabSelected(tabIndex: Int) {
-        _state.update {
-            it.copy(currentSelectedTabIndex = tabIndex)
+        viewModelScope.launch(Dispatchers.IO) {
+            val posts =
+                when (tabIndex) {
+                    0 -> postsRepository.fetchPosts()
+                    else -> postsRepository.fetchPosts().filter { it.isFavorite }
+                }
+            _state.update {
+                it.copy(
+                    posts = posts.toPostUiState(),
+                    currentSelectedTabIndex = tabIndex,
+                )
+            }
         }
     }
 
