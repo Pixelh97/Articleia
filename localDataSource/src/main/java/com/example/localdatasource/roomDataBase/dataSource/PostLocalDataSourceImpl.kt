@@ -30,5 +30,11 @@ class PostLocalDataSourceImpl(
         postDao.insertAll(posts)
     }
 
+    override suspend fun updatePost(post: LocalPostDto) {
+        postDao.upsert(post)
+    }
+
     override suspend fun fitchPosts(): List<LocalPostDto> = postDao.getAllPosts()
+
+    override suspend fun getPostById(postId: Int): LocalPostDto? = postDao.getPostById(postId)
 }

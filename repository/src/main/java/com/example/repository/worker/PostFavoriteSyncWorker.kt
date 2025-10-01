@@ -21,7 +21,6 @@ class PostFavoriteSyncWorker(
                 return Result.success()
             }
 
-            // Sync each pending like
             pendingLikes.forEach { pendingLike ->
 
                 try {
@@ -30,6 +29,13 @@ class PostFavoriteSyncWorker(
                     } else {
                         remoteDataSource.addPostToFavorites(pendingLike.postId)
                     }
+                    val updatedPost =
+                        localDataSource
+                            .getPostById(pendingLike.postId)
+                            ?.copy(isFavorite = pendingLike.isFavorite)
+                    if (updatedPost != null) {
+                        localDataSource.updatePost(updatedPost)
+                    }
                     localDataSource.removeFavoriteQueue(pendingLike.postId, pendingLike.isFavorite)
                 } catch (e: Exception) {
                     // Log error but continue with other items
@@ -37,12 +43,10 @@ class PostFavoriteSyncWorker(
                 }
             }
 
-            // Check if all synced
             val remaining = localDataSource.getAllPendingFavorites()
             if (remaining.isEmpty()) {
                 Result.success()
             } else {
-                // Retry if some failed
                 Result.retry()
             }
         } catch (e: Exception) {

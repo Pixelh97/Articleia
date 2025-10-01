@@ -18,5 +18,9 @@ interface PostLocalDataSource {
 
     suspend fun addAllPosts(posts: List<LocalPostDto>)
 
+    suspend fun updatePost(post: LocalPostDto)
+
     suspend fun fitchPosts(): List<LocalPostDto>
+
+    suspend fun getPostById(postId: Int): LocalPostDto?
 }
