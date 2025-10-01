@@ -20,9 +20,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.designsystem.theme.AppTheme
 import com.example.ui.R
 import com.example.ui.components.LoadingPlaceholder
+import com.example.ui.components.NoDataFoundPlaceholder
 import com.example.ui.components.NoNetworkPlaceholder
 import com.example.ui.navigation.Route
-import com.example.ui.components.NoDataFoundPlaceholder
 import com.example.ui.screens.posts.components.PostCard
 import com.example.ui.screens.posts.components.TabRow
 import com.example.ui.screens.posts.components.TabTitle
@@ -39,13 +39,11 @@ fun PostsScreen(
     val uiState = viewModel.state.collectAsStateWithLifecycle()
     PostsScreenContent(
         state = uiState.value,
-        onPostClick = {
-            val post = uiState.value.posts[it.dec()]
+        onPostClick = { postId ->
+            val post = uiState.value.posts.find { it.id == postId }
             navController.navigate(
                 Route.PostDetails(
-                    postId = post.id,
-                    postTitle = post.title,
-                    postBody = post.body,
+                    postId = post?.id ?: 0,
                 ),
             )
         },
