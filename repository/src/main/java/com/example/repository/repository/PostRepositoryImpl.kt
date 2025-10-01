@@ -33,13 +33,18 @@ class PostRepositoryImpl(
                     .fetchPosts()
                     .map {
                         val comments = remoteDataSource.fetchCommentsByPostId(it.id)
-                        it.toPost(comments.size, false)
+                        it.toPost(comments.size, isPostInPendingQueue(it.id))
                     }
             localDataSource.addAllPosts(posts.toPostsDto())
             return posts
         } else {
             return cachedPosts.toPosts()
         }
+    }
+
+    private suspend fun isPostInPendingQueue(id: Int): Boolean {
+        val pendingFavorites = localDataSource.getAllPendingFavorites()
+        return pendingFavorites.find { it.postId == id }?.isFavorite ?: false
     }
 
     override suspend fun fetchCommentsByPostId(postId: Int): List<Comment> =
