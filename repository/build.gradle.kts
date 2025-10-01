@@ -43,6 +43,17 @@ dependencies {
     implementation(libs.androidx.work.runtime.ktx)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
+
+    // mockk
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    // junit 5
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter.api)
+    testRuntimeOnly(libs.junit.jupiter.engine)
+    testImplementation(libs.junit.jupiter.params)
+    // truth
+    testImplementation(libs.truth)
     testImplementation(libs.androidx.room.testing)
     api(project(":domain"))
     testImplementation(libs.junit)
