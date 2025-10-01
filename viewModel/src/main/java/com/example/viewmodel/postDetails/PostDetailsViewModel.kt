@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.repository.PostRepository
 import com.example.viewmodel.posts.PostsScreenUiState
+import com.example.viewmodel.posts.toPostUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -19,8 +20,6 @@ class PostDetailsViewModel(
     val state = _state.asStateFlow()
 
     val postId: Int = savedStateHandle["postId"] ?: 0
-    val postTitle: String = savedStateHandle["postTitle"] ?: ""
-    val postBody: String = savedStateHandle["postBody"] ?: ""
 
     init {
         fitchPostComments()
@@ -34,14 +33,10 @@ class PostDetailsViewModel(
                     postRepository
                         .fetchCommentsByPostId(1)
                         .toCommentUiStateList()
+                val post = postRepository.fetchPostById(postId)
                 _state.update {
                     it.copy(
-                        postUiState =
-                            PostsScreenUiState.PostUiState(
-                                id = postId,
-                                title = postTitle,
-                                body = postBody,
-                            ),
+                        postUiState = post?.toPostUiState() ?: PostsScreenUiState.PostUiState(),
                         comments = comments,
                         isLoading = false,
                         error = null,

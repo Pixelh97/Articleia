@@ -42,6 +42,20 @@ class PostRepositoryImpl(
         }
     }
 
+    override suspend fun fetchPostById(postId: Int): Post? {
+        val cachedPost = localDataSource.getPostById(postId)
+        return if (cachedPost == null) {
+//            val post = remoteDataSource.fetchPostById(postId) ?: return null
+//            val comments = remoteDataSource.fetchCommentsByPostId(post.id)
+//            val postWithComments = post.toPost(comments.size, isPostInPendingQueue(post.id))
+//            localDataSource.addPost(postWithComments.toPostsDto().first())
+//            postWithComments
+            null
+        } else {
+            cachedPost.toPost()
+        }
+    }
+
     private suspend fun isPostInPendingQueue(id: Int): Boolean {
         val pendingFavorites = localDataSource.getAllPendingFavorites()
         return pendingFavorites.find { it.postId == id }?.isFavorite ?: false
