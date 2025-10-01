@@ -5,7 +5,7 @@ import com.example.entity.Post
 import kotlinx.coroutines.flow.Flow
 
 interface PostRepository {
-    suspend fun fetchPosts(): Flow<List<Post>>
+    suspend fun fetchPosts(): List<Post>
 
-    suspend fun fetchCommentsByPostId(postId: Int): Flow<List<Comment>>
+    suspend fun fetchCommentsByPostId(postId: Int): List<Comment>
 }

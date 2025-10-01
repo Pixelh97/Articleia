@@ -1,8 +1,8 @@
 package com.example.remotedatasource.dataSource
 
 import com.example.remotedatasource.client.NetworkClient
-import com.example.repository.dataSource.dto.remote.CommentDto
-import com.example.repository.dataSource.dto.remote.PostDto
+import com.example.repository.dto.remote.CommentDto
+import com.example.repository.dto.remote.PostDto
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.HttpStatusCode

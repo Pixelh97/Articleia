@@ -11,12 +11,15 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.designsystem.theme.AppTheme
+import com.example.ui.R
 import com.example.ui.components.LoadingPlaceholder
 import com.example.ui.components.NoNetworkPlaceholder
+import com.example.ui.screens.posts.components.NoDataFoundPlaceholder
 import com.example.ui.screens.posts.components.PostCard
 import com.example.ui.screens.posts.components.TabRow
 import com.example.ui.screens.posts.components.TabTitle
@@ -78,8 +81,10 @@ private fun PostsScreenContent(
             item { LoadingPlaceholder(modifier = Modifier.padding(top = 220.dp)) }
         } else if (state.isNoInternetConnection) {
             item {
-                NoNetworkPlaceholder(onRetryClick, modifier = Modifier.padding(top = 220.dp))
+                NoNetworkPlaceholder(onRetryClick, modifier = Modifier.padding(top = 120.dp))
             }
+        } else if (state.posts.isEmpty()) {
+            item { NoDataFoundPlaceholder(modifier = Modifier.padding(top = 220.dp)) }
         } else {
             Posts(posts = state.posts, onPostClick = onPostClick)
         }
@@ -103,8 +108,8 @@ private fun TapLayout(
 ) {
     val tabs =
         listOf(
-            "All",
-            "Favorite",
+            stringResource(R.string.all),
+            stringResource(R.string.favorite),
         )
     TabRow(
         selectedTabPosition = selectedTabIndex,
@@ -120,8 +125,7 @@ private fun TapLayout(
 private fun WelcomeMessage(modifier: Modifier = Modifier) {
     Text(
         text =
-            "Hi, what do \n" +
-                "you want to read",
+            stringResource(R.string.hi_what_do_you_want_to_read),
         style = AppTheme.textStyle.title.bold,
         color = AppTheme.color.primaryA,
         modifier = modifier,
