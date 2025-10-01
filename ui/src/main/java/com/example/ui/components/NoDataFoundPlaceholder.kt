@@ -1,6 +1,7 @@
-package com.example.ui.screens.posts.components
+package com.example.ui.components
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -11,10 +12,8 @@ import com.example.designsystem.theme.AppTheme
 import com.example.ui.R
 
 @Composable
-fun NoDataFoundPlaceholder(
-    modifier: Modifier = Modifier
-) {
-    Box(modifier) {
+fun NoDataFoundPlaceholder(modifier: Modifier = Modifier) {
+    Box(modifier.fillMaxWidth()) {
         Text(
             text = stringResource(R.string.could_not_find_any_data_at_the_current_time),
             style = AppTheme.textStyle.title.bold,

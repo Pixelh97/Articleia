@@ -22,7 +22,7 @@ import com.example.ui.R
 import com.example.ui.components.LoadingPlaceholder
 import com.example.ui.components.NoNetworkPlaceholder
 import com.example.ui.navigation.Route
-import com.example.ui.screens.posts.components.NoDataFoundPlaceholder
+import com.example.ui.components.NoDataFoundPlaceholder
 import com.example.ui.screens.posts.components.PostCard
 import com.example.ui.screens.posts.components.TabRow
 import com.example.ui.screens.posts.components.TabTitle

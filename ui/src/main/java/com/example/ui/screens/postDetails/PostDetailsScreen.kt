@@ -1,9 +1,7 @@
 package com.example.ui.screens.postDetails
 
-import android.system.Os.stat
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -34,7 +32,7 @@ import com.example.ui.R
 import com.example.ui.components.LoadingPlaceholder
 import com.example.ui.components.NoNetworkPlaceholder
 import com.example.ui.screens.postDetails.components.CommentCard
-import com.example.ui.screens.posts.components.NoDataFoundPlaceholder
+import com.example.ui.components.NoDataFoundPlaceholder
 import com.example.viewmodel.postDetails.PostDetailsUiState
 import com.example.viewmodel.postDetails.PostDetailsViewModel
 import com.example.viewmodel.posts.PostsScreenUiState
