@@ -2,8 +2,9 @@ package com.example.viewmodel.posts
 
 data class PostsScreenUiState(
     val posts: List<PostUiState> = emptyList(),
-    val isLoading: Boolean = false,
-    val currentSelectedTabIndex: Int = 0
+    val currentSelectedTabIndex: Int = 0,
+    val isLoading: Boolean = true,
+    val isNoInternetConnection: Boolean = false,
 ) {
     data class PostUiState(
         val id: Int,

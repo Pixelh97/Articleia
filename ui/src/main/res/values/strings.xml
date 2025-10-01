@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="comments">%1$d Comments</string>
+    <string name="no_network_icon">No network icon</string>
+    <string name="oops_no_internet_connection">Oops! No Internet Connection</string>
+    <string name="please_check_your_internet_connection_and_try_again">Please check your internet connection and try again</string>
+    <string name="retry">Retry</string>
 </resources>

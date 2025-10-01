@@ -17,4 +17,7 @@ class PostsViewModel : ViewModel() {
             it.copy(currentSelectedTabIndex = tabIndex)
         }
     }
+
+    fun retryFetchingPosts() {
+    }
 }

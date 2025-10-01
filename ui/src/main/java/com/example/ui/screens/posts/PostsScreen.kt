@@ -15,6 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.designsystem.theme.AppTheme
+import com.example.ui.components.LoadingPlaceholder
+import com.example.ui.components.NoNetworkPlaceholder
 import com.example.ui.screens.posts.components.PostCard
 import com.example.ui.screens.posts.components.TabRow
 import com.example.ui.screens.posts.components.TabTitle
@@ -32,6 +34,7 @@ fun PostsScreen(
         state = uiState.value,
         onPostClick = viewModel::onPostClick,
         onTabSelected = viewModel::onTabSelected,
+        onRetryClick = viewModel::retryFetchingPosts,
         modifier = modifier,
     )
 }
@@ -41,6 +44,7 @@ private fun PostsScreenContent(
     state: PostsScreenUiState,
     onPostClick: (Int) -> Unit,
     onTabSelected: (Int) -> Unit,
+    onRetryClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -70,7 +74,15 @@ private fun PostsScreenContent(
             Spacer(modifier = Modifier.padding(32.dp))
         }
 
-        Posts(posts = state.posts, onPostClick = onPostClick)
+        if (state.isLoading) {
+            item { LoadingPlaceholder(modifier = Modifier.padding(top = 220.dp)) }
+        } else if (state.isNoInternetConnection) {
+            item {
+                NoNetworkPlaceholder(onRetryClick, modifier = Modifier.padding(top = 220.dp))
+            }
+        } else {
+            Posts(posts = state.posts, onPostClick = onPostClick)
+        }
     }
 }
 
@@ -132,6 +144,7 @@ private fun PreviewPostsScreen() {
                         )
                     },
             ),
+        {},
         {},
         {},
         modifier = Modifier.fillMaxSize(),
