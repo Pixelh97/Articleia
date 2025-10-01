@@ -22,10 +22,8 @@ class MainActivity : ComponentActivity() {
             ArticleiaTheme {
                 val navController = rememberNavController()
 
-                Scaffold(modifier = Modifier.Companion.fillMaxSize()) { innerPadding ->
-                    Box(modifier = Modifier.padding(innerPadding)) {
-                        NavGraph(navController = navController)
-                    }
+                Box(modifier = Modifier.Companion.fillMaxSize()) {
+                    NavGraph(navController = navController)
                 }
             }
         }

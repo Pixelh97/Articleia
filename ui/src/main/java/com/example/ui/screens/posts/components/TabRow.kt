@@ -35,9 +35,9 @@ import com.example.designsystem.theme.AppTheme
 @Composable
 fun TabRow(
     modifier: Modifier = Modifier,
-    containerColor: Color = Color.White,
-    selectedIndicatorColor: Color = AppTheme.color.primaryA,
-    unselectedIndicatorColor: Color = AppTheme.color.contentD,
+    containerColor: Color = AppTheme.color.tabContainer,
+    selectedIndicatorColor: Color = AppTheme.color.tabIndicator,
+    unselectedIndicatorColor: Color = AppTheme.color.tabContainer,
     containerShape: Shape = CircleShape,
     indicatorShape: Shape = CircleShape,
     paddingValues: PaddingValues = PaddingValues(4.dp),
