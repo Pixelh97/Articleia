@@ -51,6 +51,4 @@ dependencies {
     testImplementation(libs.truth)
     implementation(project(":repository"))
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }
