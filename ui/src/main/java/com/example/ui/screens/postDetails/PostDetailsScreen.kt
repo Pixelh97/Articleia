@@ -30,9 +30,9 @@ import androidx.navigation.compose.rememberNavController
 import com.example.designsystem.theme.AppTheme
 import com.example.ui.R
 import com.example.ui.components.LoadingPlaceholder
+import com.example.ui.components.NoDataFoundPlaceholder
 import com.example.ui.components.NoNetworkPlaceholder
 import com.example.ui.screens.postDetails.components.CommentCard
-import com.example.ui.components.NoDataFoundPlaceholder
 import com.example.viewmodel.postDetails.PostDetailsUiState
 import com.example.viewmodel.postDetails.PostDetailsViewModel
 import com.example.viewmodel.posts.PostsScreenUiState
@@ -195,18 +195,20 @@ private fun TopBar(
             )
         }
 
-        IconToggleButton(
-            checked = state.postUiState.isFavorite,
-            onCheckedChange = onFavoriteClick,
-        ) {
-            Icon(
-                imageVector =
-                    ImageVector.vectorResource(
-                        if (state.postUiState.isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_outline,
-                    ),
-                contentDescription = stringResource(R.string.navigate_back_button),
-                tint = AppTheme.color.primaryA,
-            )
+        if (!state.isLoading) {
+            IconToggleButton(
+                checked = state.postUiState.isFavorite,
+                onCheckedChange = onFavoriteClick,
+            ) {
+                Icon(
+                    imageVector =
+                        ImageVector.vectorResource(
+                            if (state.postUiState.isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_outline,
+                        ),
+                    contentDescription = stringResource(R.string.navigate_back_button),
+                    tint = AppTheme.color.primaryA,
+                )
+            }
         }
     }
 }
