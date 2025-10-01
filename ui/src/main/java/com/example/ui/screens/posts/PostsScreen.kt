@@ -18,7 +18,6 @@ import com.example.designsystem.theme.AppTheme
 import com.example.ui.screens.posts.components.PostCard
 import com.example.ui.screens.posts.components.TabRow
 import com.example.ui.screens.posts.components.TabTitle
-import com.example.viewmodel.posts.PostsInteractionListener
 import com.example.viewmodel.posts.PostsScreenUiState
 import com.example.viewmodel.posts.PostsViewModel
 import org.koin.androidx.compose.koinViewModel
@@ -31,7 +30,8 @@ fun PostsScreen(
     val uiState = viewModel.state.collectAsStateWithLifecycle()
     PostsScreenContent(
         state = uiState.value,
-        listener = viewModel,
+        onPostClick = viewModel::onPostClick,
+        onTabSelected = viewModel::onTabSelected,
         modifier = modifier,
     )
 }
@@ -39,7 +39,8 @@ fun PostsScreen(
 @Composable
 private fun PostsScreenContent(
     state: PostsScreenUiState,
-    listener: PostsInteractionListener,
+    onPostClick: (Int) -> Unit,
+    onTabSelected: (Int) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     LazyColumn(
@@ -58,7 +59,7 @@ private fun PostsScreenContent(
         stickyHeader {
             TapLayout(
                 state.currentSelectedTabIndex,
-                listener::onTabSelected,
+                onTabSelected,
                 Modifier
                     .padding(top = 16.dp)
                     .padding(horizontal = 24.dp),
@@ -69,7 +70,7 @@ private fun PostsScreenContent(
             Spacer(modifier = Modifier.padding(32.dp))
         }
 
-        Posts(posts = state.posts, onPostClick = listener::onPostClick)
+        Posts(posts = state.posts, onPostClick = onPostClick)
     }
 }
 
@@ -131,12 +132,8 @@ private fun PreviewPostsScreen() {
                         )
                     },
             ),
-        listener =
-            object : PostsInteractionListener {
-                override fun onPostClick(postId: Int) {}
-
-                override fun onTabSelected(tabIndex: Int) {}
-            },
+        {},
+        {},
         modifier = Modifier.fillMaxSize(),
     )
 }
