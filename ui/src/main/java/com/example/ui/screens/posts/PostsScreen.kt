@@ -15,10 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.designsystem.theme.AppTheme
 import com.example.ui.R
 import com.example.ui.components.LoadingPlaceholder
 import com.example.ui.components.NoNetworkPlaceholder
+import com.example.ui.navigation.Route
 import com.example.ui.screens.posts.components.NoDataFoundPlaceholder
 import com.example.ui.screens.posts.components.PostCard
 import com.example.ui.screens.posts.components.TabRow
@@ -31,11 +34,21 @@ import org.koin.androidx.compose.koinViewModel
 fun PostsScreen(
     modifier: Modifier = Modifier,
     viewModel: PostsViewModel = koinViewModel(),
+    navController: NavController = rememberNavController(),
 ) {
     val uiState = viewModel.state.collectAsStateWithLifecycle()
     PostsScreenContent(
         state = uiState.value,
-        onPostClick = viewModel::onPostClick,
+        onPostClick = {
+            val post = uiState.value.posts[it.dec()]
+            navController.navigate(
+                Route.PostDetails(
+                    postId = post.id,
+                    postTitle = post.title,
+                    postBody = post.body,
+                ),
+            )
+        },
         onTabSelected = viewModel::onTabSelected,
         onRetryClick = viewModel::retryFetchingPosts,
         modifier = modifier,

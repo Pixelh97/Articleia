@@ -27,9 +27,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.designsystem.theme.AppTheme
 import com.example.ui.R
+import com.example.ui.components.LoadingPlaceholder
+import com.example.ui.components.NoNetworkPlaceholder
 import com.example.ui.screens.postDetails.components.CommentCard
+import com.example.ui.screens.posts.components.NoDataFoundPlaceholder
 import com.example.viewmodel.postDetails.PostDetailsUiState
 import com.example.viewmodel.postDetails.PostDetailsViewModel
 import com.example.viewmodel.posts.PostsScreenUiState
@@ -39,13 +44,17 @@ import org.koin.androidx.compose.koinViewModel
 fun PostDetailsScreen(
     modifier: Modifier = Modifier,
     viewModel: PostDetailsViewModel = koinViewModel(),
+    navController: NavController = rememberNavController(),
 ) {
     val uiState = viewModel.state.collectAsState()
 
     PostDetailsContent(
         uiState.value,
         viewModel::toggleFavorite,
-        {},
+        {
+            navController.popBackStack()
+        },
+        viewModel::retryFetchingData,
         modifier,
     )
 }
@@ -55,6 +64,7 @@ private fun PostDetailsContent(
     state: PostDetailsUiState,
     onFavoriteClick: (Boolean) -> Unit,
     onNavigateBackClick: () -> Unit,
+    onRetry: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Column(
@@ -64,13 +74,28 @@ private fun PostDetailsContent(
                 .background(AppTheme.color.contentC),
     ) {
         TopBar(state, onNavigateBackClick, onFavoriteClick, Modifier.padding(top = 48.dp))
-        PostContent(state.postUiState, Modifier.padding(top = 24.dp))
-        CommentSection(
-            state.comments,
-            Modifier
-                .padding(top = 14.dp)
-                .weight(1f),
-        )
+        if (state.isLoading) {
+            LoadingPlaceholder(
+                modifier =
+                    Modifier
+                        .weight(1f),
+            )
+        } else if (state.error != null) {
+            NoNetworkPlaceholder(
+                modifier =
+                    Modifier
+                        .weight(1f),
+                onRetryClick = onRetry,
+            )
+        } else {
+            PostContent(state.postUiState, Modifier.padding(top = 24.dp))
+            CommentSection(
+                state.comments,
+                Modifier
+                    .padding(top = 14.dp)
+                    .weight(1f),
+            )
+        }
     }
 }
 
@@ -79,43 +104,49 @@ fun CommentSection(
     comments: List<PostDetailsUiState.PostDetailsCommentUiState>,
     modifier: Modifier = Modifier,
 ) {
-    LazyColumn(
-        contentPadding = PaddingValues(vertical = 24.dp),
-        modifier =
-            modifier
-                .fillMaxWidth()
-                .clip(
-                    RoundedCornerShape(
-                        topStart = 40.dp,
-                        topEnd = 40.dp,
-                    ),
-                ).background(AppTheme.color.primaryB)
-                .padding(horizontal = 24.dp),
-    ) {
-        item {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(bottom = 8.dp),
-            ) {
-                Icon(
-                    imageVector = ImageVector.vectorResource(R.drawable.ic_comment),
-                    contentDescription = null,
-                    tint = AppTheme.color.primaryA,
-                )
+    if (comments.isEmpty()) {
+        NoDataFoundPlaceholder(
+            modifier = modifier.fillMaxSize(),
+        )
+    } else {
+        LazyColumn(
+            contentPadding = PaddingValues(vertical = 24.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .clip(
+                        RoundedCornerShape(
+                            topStart = 40.dp,
+                            topEnd = 40.dp,
+                        ),
+                    ).background(AppTheme.color.primaryB)
+                    .padding(horizontal = 24.dp),
+        ) {
+            item {
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    modifier = Modifier.padding(bottom = 8.dp),
+                ) {
+                    Icon(
+                        imageVector = ImageVector.vectorResource(R.drawable.ic_comment),
+                        contentDescription = null,
+                        tint = AppTheme.color.primaryA,
+                    )
 
-                Text(
-                    text = stringResource(R.string.comment, comments.size),
-                    style = AppTheme.textStyle.captionTwo.bold,
-                    color = AppTheme.color.primaryA,
+                    Text(
+                        text = stringResource(R.string.comment, comments.size),
+                        style = AppTheme.textStyle.captionTwo.bold,
+                        color = AppTheme.color.primaryA,
+                    )
+                }
+            }
+
+            items(comments) { comment ->
+                CommentCard(
+                    comment,
+                    modifier = Modifier.padding(vertical = 8.dp),
                 )
             }
-        }
-
-        items(comments) { comment ->
-            CommentCard(
-                comment,
-                modifier = Modifier.padding(vertical = 8.dp),
-            )
         }
     }
 }
@@ -218,6 +249,7 @@ private fun PreviewPostDetailsScreen() {
                         ),
                     ),
             ),
+        {},
         {},
         {},
     )

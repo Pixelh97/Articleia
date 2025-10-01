@@ -50,9 +50,6 @@ class PostsViewModel(
         }
     }
 
-    fun onPostClick(postId: Int) {
-    }
-
     fun onTabSelected(tabIndex: Int) {
         _state.update {
             it.copy(currentSelectedTabIndex = tabIndex)

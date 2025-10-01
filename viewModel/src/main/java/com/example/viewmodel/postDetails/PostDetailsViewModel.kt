@@ -1,8 +1,10 @@
 package com.example.viewmodel.postDetails
 
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.domain.repository.PostRepository
+import com.example.viewmodel.posts.PostsScreenUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -11,9 +13,14 @@ import kotlinx.coroutines.launch
 
 class PostDetailsViewModel(
     private val postRepository: PostRepository,
+    savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
     private val _state = MutableStateFlow(PostDetailsUiState())
     val state = _state.asStateFlow()
+
+    val postId: Int = savedStateHandle["postId"] ?: 0
+    val postTitle: String = savedStateHandle["postTitle"] ?: ""
+    val postBody: String = savedStateHandle["postBody"] ?: ""
 
     init {
         fitchPostComments()
@@ -29,6 +36,12 @@ class PostDetailsViewModel(
                         .toCommentUiStateList()
                 _state.update {
                     it.copy(
+                        postUiState =
+                            PostsScreenUiState.PostUiState(
+                                id = postId,
+                                title = postTitle,
+                                body = postBody,
+                            ),
                         comments = comments,
                         isLoading = false,
                         error = null,
@@ -56,12 +69,11 @@ class PostDetailsViewModel(
                     )
                 }
             } catch (e: Exception) {
-//                _state.emit(
-//                    _state.value.copy(
-//                        error = e.message,
-//                    )
-//                )
             }
         }
+    }
+
+    fun retryFetchingData() {
+        fitchPostComments()
     }
 }
