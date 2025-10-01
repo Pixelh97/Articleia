@@ -65,7 +65,7 @@ The project follows **Clean Architecture** principles with clear separation of c
 - **SavedStateHandle**: ViewModel state preservation
 
 ### Dependency Injection
-- Likely using **Koin** or **Hilt** (DI framework)
+- Using **Koin**
 
 ### Testing
 - **JUnit**: Unit testing framework
