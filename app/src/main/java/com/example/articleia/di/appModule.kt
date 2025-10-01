@@ -4,5 +4,6 @@ val appModule =
     listOf(
         viewModelModule,
         repositoryModule,
-        dataSourceModule,
+        localDataSourceModule,
+        remoteDataSourceModule,
     )

@@ -56,6 +56,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.core)
     implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.androidx.room.runtime)
     implementation(project(":localDataSource"))
     implementation(project(":repository"))
     implementation(project(":remoteDataSource"))
