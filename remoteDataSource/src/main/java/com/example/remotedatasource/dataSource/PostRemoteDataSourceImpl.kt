@@ -1,5 +1,6 @@
 package com.example.remotedatasource.dataSource
 
+import com.example.domain.exceptions.NoInternetException
 import com.example.remotedatasource.client.NetworkClient
 import com.example.remotedatasource.utill.apiHandler.responseCall
 import com.example.repository.dataSource.remote.PostRemoteDataSource
@@ -13,6 +14,10 @@ class PostRemoteDataSourceImpl(
 
     override suspend fun fetchCommentsByPostId(postId: Int): List<CommentDto> =
         responseCall { networkClient.get("$GET_POSTS/$postId$GET_COMMENTS_BY_POST_ID") }
+
+    override suspend fun addPostToFavorites(postId: Int): Unit = throw NoInternetException()
+
+    override suspend fun removePostFromFavorites(postId: Int): Unit = throw NoInternetException()
 
     companion object {
         private const val GET_POSTS = "/posts"

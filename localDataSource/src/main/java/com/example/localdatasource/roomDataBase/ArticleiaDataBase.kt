@@ -12,7 +12,7 @@ import kotlin.jvm.java
 
 @Database(
     entities = [LocalPostDto::class, LocalFavoriteQueueDto::class],
-    version = 1,
+    version = 2,
     exportSchema = true,
 )
 abstract class ArticleiaDataBase : RoomDatabase() {

@@ -108,7 +108,7 @@ private fun TapLayout(
 ) {
     val tabs =
         listOf(
-            stringResource(R.string.all),
+            stringResource(R.string.post),
             stringResource(R.string.favorite),
         )
     TabRow(

@@ -53,7 +53,7 @@ fun PostDetailsScreen(
 @Composable
 private fun PostDetailsContent(
     state: PostDetailsUiState,
-    onFavoriteClick: (Int) -> Unit,
+    onFavoriteClick: (Boolean) -> Unit,
     onNavigateBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -81,20 +81,21 @@ fun CommentSection(
 ) {
     LazyColumn(
         contentPadding = PaddingValues(vertical = 24.dp),
-        modifier = modifier
-            .fillMaxWidth()
-            .clip(
-                RoundedCornerShape(
-                    topStart = 40.dp,
-                    topEnd = 40.dp,
-                ),
-            ).background(AppTheme.color.primaryB)
-            .padding(horizontal = 24.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .clip(
+                    RoundedCornerShape(
+                        topStart = 40.dp,
+                        topEnd = 40.dp,
+                    ),
+                ).background(AppTheme.color.primaryB)
+                .padding(horizontal = 24.dp),
     ) {
         item {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(bottom = 8.dp)
+                modifier = Modifier.padding(bottom = 8.dp),
             ) {
                 Icon(
                     imageVector = ImageVector.vectorResource(R.drawable.ic_comment),
@@ -113,7 +114,7 @@ fun CommentSection(
         items(comments) { comment ->
             CommentCard(
                 comment,
-                modifier = Modifier.padding(vertical = 8.dp)
+                modifier = Modifier.padding(vertical = 8.dp),
             )
         }
     }
@@ -146,7 +147,7 @@ fun PostContent(
 private fun TopBar(
     state: PostDetailsUiState,
     onNavigateBackClick: () -> Unit,
-    onFavoriteClick: (Int) -> Unit,
+    onFavoriteClick: (Boolean) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -167,12 +168,12 @@ private fun TopBar(
 
         IconToggleButton(
             checked = state.postUiState.isFavorite,
-            onCheckedChange = { onFavoriteClick(state.postUiState.id) },
+            onCheckedChange = onFavoriteClick,
         ) {
             Icon(
                 imageVector =
                     ImageVector.vectorResource(
-                        if (state.postUiState.isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_filled,
+                        if (state.postUiState.isFavorite) R.drawable.ic_favorite_filled else R.drawable.ic_favorite_outline,
                     ),
                 contentDescription = stringResource(R.string.navigate_back_button),
                 tint = AppTheme.color.primaryA,
@@ -191,7 +192,7 @@ private fun PreviewPostDetailsScreen() {
                     PostsScreenUiState.PostUiState(
                         title = "sunt aut facere repellat provident occaecati excepturi optio reprehenderit",
                         body = "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
-                        isFavorite = true,
+                        isFavorite = false,
                     ),
                 comments =
                     listOf(

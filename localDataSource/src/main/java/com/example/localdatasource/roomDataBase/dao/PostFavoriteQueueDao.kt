@@ -9,11 +9,11 @@ import com.example.repository.dto.local.LocalFavoriteQueueDto
 @Dao
 interface PostFavoriteQueueDao {
     @Insert
-    suspend fun insert(postId: LocalFavoriteQueueDto)
+    suspend fun insert(item: LocalFavoriteQueueDto)
 
     @Delete
-    suspend fun delete(postId: LocalFavoriteQueueDto)
+    suspend fun delete(item: LocalFavoriteQueueDto)
 
-    @Query("SELECT * FROM LocalFavoriteQueueDto")
-    suspend fun getAll(): List<Int>
+    @Query("SELECT * FROM FavoriteQueue")
+    suspend fun getAll(): List<LocalFavoriteQueueDto>
 }

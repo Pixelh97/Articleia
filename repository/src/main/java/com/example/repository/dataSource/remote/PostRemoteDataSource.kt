@@ -7,4 +7,8 @@ interface PostRemoteDataSource {
     suspend fun fetchPosts(): List<PostDto>
 
     suspend fun fetchCommentsByPostId(postId: Int): List<CommentDto>
+
+    suspend fun addPostToFavorites(postId: Int)
+
+    suspend fun removePostFromFavorites(postId: Int)
 }

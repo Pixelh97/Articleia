@@ -1,14 +1,20 @@
 package com.example.repository.dataSource.local
 
-import com.example.entity.Post
+import com.example.repository.dto.local.LocalFavoriteQueueDto
 import com.example.repository.dto.local.LocalPostDto
 
 interface PostLocalDataSource {
-    suspend fun addFavorite(postId: Int)
+    suspend fun addFavoriteQueue(
+        postId: Int,
+        isFavorite: Boolean,
+    )
 
-    suspend fun removeFavorite(postId: Int)
+    suspend fun removeFavoriteQueue(
+        postId: Int,
+        isFavorite: Boolean,
+    )
 
-    suspend fun getAllFavorites(): List<Int>
+    suspend fun getAllPendingFavorites(): List<LocalFavoriteQueueDto>
 
     suspend fun addAllPosts(posts: List<LocalPostDto>)
 

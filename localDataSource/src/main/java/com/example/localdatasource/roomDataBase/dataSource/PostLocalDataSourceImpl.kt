@@ -10,15 +10,21 @@ class PostLocalDataSourceImpl(
     private val postDao: PostsDao,
     private val postFavoriteQueueDao: PostFavoriteQueueDao,
 ) : PostLocalDataSource {
-    override suspend fun addFavorite(postId: Int) {
-        postFavoriteQueueDao.insert(LocalFavoriteQueueDto(postId))
+    override suspend fun addFavoriteQueue(
+        postId: Int,
+        isFavorite: Boolean,
+    ) {
+        postFavoriteQueueDao.insert(LocalFavoriteQueueDto(postId, isFavorite))
     }
 
-    override suspend fun removeFavorite(postId: Int) {
-        postFavoriteQueueDao.delete(LocalFavoriteQueueDto(postId))
+    override suspend fun removeFavoriteQueue(
+        postId: Int,
+        isFavorite: Boolean,
+    ) {
+        postFavoriteQueueDao.delete(LocalFavoriteQueueDto(postId, isFavorite))
     }
 
-    override suspend fun getAllFavorites(): List<Int> = postFavoriteQueueDao.getAll()
+    override suspend fun getAllPendingFavorites(): List<LocalFavoriteQueueDto> = postFavoriteQueueDao.getAll()
 
     override suspend fun addAllPosts(posts: List<LocalPostDto>) {
         postDao.insertAll(posts)
