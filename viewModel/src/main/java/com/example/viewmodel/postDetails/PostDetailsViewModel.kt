@@ -43,27 +43,24 @@ class PostDetailsViewModel(
                     )
                 }
             } catch (e: Exception) {
-                _state.emit(
-                    _state.value.copy(
+                _state.update {
+                    it.copy(
                         isLoading = false,
                         error = e.message,
-                    ),
-                )
+                    )
+                }
             }
         }
     }
 
     fun toggleFavorite(isFavorite: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            try {
-                postRepository.togglePostFavorite(_state.value.postUiState.id, isFavorite)
-                _state.update {
-                    it.copy(
-                        postUiState = it.postUiState.copy(isFavorite = isFavorite),
-                        error = null,
-                    )
-                }
-            } catch (e: Exception) {
+            postRepository.togglePostFavorite(_state.value.postUiState.id, isFavorite)
+            _state.update {
+                it.copy(
+                    postUiState = it.postUiState.copy(isFavorite = isFavorite),
+                    error = null,
+                )
             }
         }
     }
