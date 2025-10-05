@@ -10,7 +10,6 @@ data class PostsScreenUiState(
         val id: Int = 0,
         val title: String = "",
         val body: String = "",
-        val commentsCount: Int = 0,
         val isFavorite: Boolean = false,
     )
 }

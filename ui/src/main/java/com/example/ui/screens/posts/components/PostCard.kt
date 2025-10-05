@@ -65,7 +65,7 @@ fun PostCard(
             Spacer(modifier = Modifier.padding(20.dp))
 
             Text(
-                text = stringResource(R.string.comments, post.commentsCount),
+                text = stringResource(R.string.view_comments),
                 style = AppTheme.textStyle.body.medium,
                 color = AppTheme.color.primaryA,
                 modifier = Modifier.align(alignment = Alignment.End),
@@ -91,7 +91,6 @@ private fun PreviewPostCard() {
                     id = 1,
                     title = "Why We Love Music",
                     body = "Researchers are discovering how music affects the brain, helping us to make sense of its real emotional and social power...",
-                    commentsCount = 10,
                 ),
             onPostClick = {},
         )

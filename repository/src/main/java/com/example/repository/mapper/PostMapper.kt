@@ -4,17 +4,14 @@ import com.example.entity.Post
 import com.example.repository.dto.local.LocalPostDto
 import com.example.repository.dto.remote.PostDto
 
-fun PostDto.toPost(
-    commentsCounter: Int,
-    isFavorite: Boolean,
-) = Post(
-    id = id,
-    userId = userId,
-    title = title,
-    body = body,
-    commentsCounter = commentsCounter,
-    isFavorite = isFavorite,
-)
+fun PostDto.toPost(isFavorite: Boolean) =
+    Post(
+        id = id,
+        userId = userId,
+        title = title,
+        body = body,
+        isFavorite = isFavorite,
+    )
 
 fun Post.toLocalPostDto() =
     LocalPostDto(
@@ -22,7 +19,6 @@ fun Post.toLocalPostDto() =
         userId = userId,
         title = title,
         body = body,
-        commentsCounter = commentsCounter,
         isFavorite = isFavorite,
     )
 
@@ -34,7 +30,6 @@ fun LocalPostDto.toPost() =
         userId = userId,
         title = title,
         body = body,
-        commentsCounter = commentsCounter,
         isFavorite = isFavorite,
     )
 

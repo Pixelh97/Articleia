@@ -32,8 +32,7 @@ class PostRepositoryImpl(
                 remoteDataSource
                     .fetchPosts()
                     .map {
-                        val comments = remoteDataSource.fetchCommentsByPostId(it.id)
-                        it.toPost(comments.size, isPostInPendingQueue(it.id))
+                        it.toPost(isPostInPendingQueue(it.id))
                     }
             localDataSource.addAllPosts(posts.toPostsDto())
             return posts
