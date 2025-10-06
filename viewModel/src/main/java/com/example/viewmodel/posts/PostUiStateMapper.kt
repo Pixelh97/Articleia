@@ -7,7 +7,6 @@ fun Post.toPostUiState(): PostsScreenUiState.PostUiState =
         id = this.id,
         title = this.title,
         body = this.body,
-        commentsCount = this.commentsCounter,
         isFavorite = this.isFavorite,
     )
 

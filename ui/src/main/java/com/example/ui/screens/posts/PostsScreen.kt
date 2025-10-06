@@ -155,7 +155,6 @@ private fun PreviewPostsScreen() {
                             id = it,
                             title = "Post Title $it",
                             body = "Post Body $it",
-                            commentsCount = it * 3,
                         )
                     },
             ),
