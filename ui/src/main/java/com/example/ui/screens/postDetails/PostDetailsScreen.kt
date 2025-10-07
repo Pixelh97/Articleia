@@ -78,7 +78,7 @@ private fun PostDetailsContent(
                     Modifier
                         .weight(1f),
             )
-        } else if (state.error != null) {
+        } else if (state.isError) {
             NoNetworkPlaceholder(
                 modifier =
                     Modifier

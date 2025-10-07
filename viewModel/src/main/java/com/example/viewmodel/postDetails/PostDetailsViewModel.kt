@@ -3,6 +3,7 @@ package com.example.viewmodel.postDetails
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.domain.exceptions.ArticleiaException
 import com.example.domain.repository.PostRepository
 import com.example.viewmodel.posts.PostsScreenUiState
 import com.example.viewmodel.posts.toPostUiState
@@ -36,17 +37,17 @@ class PostDetailsViewModel(
                 val post = postRepository.fetchPostById(postId)
                 _state.update {
                     it.copy(
-                        postUiState = post?.toPostUiState() ?: PostsScreenUiState.PostUiState(),
+                        postUiState = post.toPostUiState(),
                         comments = comments,
                         isLoading = false,
-                        error = null,
+                        isError = false,
                     )
                 }
-            } catch (e: Exception) {
+            } catch (e: ArticleiaException) {
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        error = e.message,
+                        isError = true,
                     )
                 }
             }
@@ -59,7 +60,7 @@ class PostDetailsViewModel(
             _state.update {
                 it.copy(
                     postUiState = it.postUiState.copy(isFavorite = isFavorite),
-                    error = null,
+                    isError = false,
                 )
             }
         }

@@ -6,7 +6,7 @@ data class PostDetailsUiState(
     val postUiState: PostsScreenUiState.PostUiState = PostsScreenUiState.PostUiState(),
     val comments: List<PostDetailsCommentUiState> = emptyList(),
     val isLoading: Boolean = false,
-    val error: String? = null,
+    val isError: Boolean = false,
 ) {
     data class PostDetailsCommentUiState(
         val id: Int = 0,
