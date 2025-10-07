@@ -49,7 +49,7 @@ fun PostsScreen(
         },
         onTabSelected = viewModel::onTabSelected,
         onRetryClick = viewModel::retryFetchingPosts,
-        modifier = modifier,
+        modifier = modifier.padding(top = 10.dp),
     )
 }
 
@@ -70,7 +70,7 @@ private fun PostsScreenContent(
         item {
             WelcomeMessage(
                 Modifier
-                    .padding(top = 88.dp)
+                    .padding(top = 78.dp)
                     .padding(horizontal = 24.dp),
             )
         }
