@@ -47,7 +47,6 @@ fun NoNetworkPlaceholder(
             color = AppTheme.color.primaryA,
             modifier =
                 Modifier
-                    .background(Color.White)
                     .padding(top = 16.dp),
         )
 
@@ -58,20 +57,21 @@ fun NoNetworkPlaceholder(
             textAlign = TextAlign.Center,
             modifier =
                 Modifier
-                    .background(Color.White)
                     .padding(top = 8.dp)
                     .padding(horizontal = 32.dp),
         )
 
         Button(
             onClick = onRetryClick,
-            colors = ButtonDefaults.buttonColors(
-                containerColor = AppTheme.color.contentD,
-            ),
-            modifier = Modifier
-                .width(196.dp)
-                .padding(top = 32.dp),
-            ) {
+            colors =
+                ButtonDefaults.buttonColors(
+                    containerColor = AppTheme.color.contentD,
+                ),
+            modifier =
+                Modifier
+                    .width(196.dp)
+                    .padding(top = 32.dp),
+        ) {
             Text(
                 text = stringResource(R.string.retry),
                 style = AppTheme.textStyle.body.medium,
