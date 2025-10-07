@@ -8,6 +8,7 @@ import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import androidx.work.WorkRequest
+import com.example.domain.exceptions.NoInternetException
 import com.example.domain.repository.PostRepository
 import com.example.entity.Comment
 import com.example.entity.Post
@@ -41,7 +42,7 @@ class PostRepositoryImpl(
         }
     }
 
-    override suspend fun fetchPostById(postId: Int): Post? {
+    override suspend fun fetchPostById(postId: Int): Post {
         val cachedPost = localDataSource.getPostById(postId)
         return if (cachedPost == null) {
 //            val post = remoteDataSource.fetchPostById(postId) ?: return null
@@ -49,7 +50,7 @@ class PostRepositoryImpl(
 //            val postWithComments = post.toPost(comments.size, isPostInPendingQueue(post.id))
 //            localDataSource.addPost(postWithComments.toPostsDto().first())
 //            postWithComments
-            null
+            throw NoInternetException()
         } else {
             cachedPost.toPost()
         }

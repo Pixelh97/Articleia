@@ -6,7 +6,7 @@ import com.example.entity.Post
 interface PostRepository {
     suspend fun fetchPosts(): List<Post>
 
-    suspend fun fetchPostById(postId: Int): Post?
+    suspend fun fetchPostById(postId: Int): Post
 
     suspend fun fetchCommentsByPostId(postId: Int): List<Comment>
 
